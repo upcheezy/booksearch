@@ -1,0 +1,17 @@
+.searchBar {
+    background-color: gray;
+    border: 0.025px solid gray;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-right: 5px;
+}
