@@ -11,16 +11,19 @@ class Select extends Component {
         this.setState({
             option: event.target.value,
             filter: event.target.value
-        }, () => {this.props.filterHandler(this.state.option, this.state.filter)}) 
+        }, () => {this.props.filterHandler(this.state.option, this.state.filter)})
+        
     } 
 
     render() {
-        // console.log(this.state);
+        console.log(this.state.option);
+        console.log(this.state.filter);
         return (
             <form>
                 <label htmlFor={this.props.name}></label>
                 <select name={this.props.name} id={this.props.name}  onChange={this.optionChangeHandler}>
                     {this.props.options.map(option => {
+                        console.log(option);
                         return (
                             <>
                                 <option value={option.value}>{option.value}</option>

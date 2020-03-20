@@ -17,8 +17,8 @@ class App extends Component {
 
   filterHandler = (option, filter) => {
     // console.log(this.state.books);
-    console.log('option ' + option);
-    console.log('filter ' + filter);
+    // console.log('option ' + option);
+    // console.log('filter ' + filter);
     const url = `https://www.googleapis.com/books/v1/volumes?q=time&printType=${option}&filter=${filter}&key=AIzaSyBourK8drHqquXLvm8hxyTJ997zO7KX-Tc`
     fetch(url)
       .then(res => res.json())
