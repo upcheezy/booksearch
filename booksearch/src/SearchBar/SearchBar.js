@@ -7,7 +7,7 @@ class SearchBar extends Component {
         return (
             <div className="searchBar">
                 <h1>Search: </h1>
-                <SearchBox />
+                <SearchBox searchHandler={this.props.searchHandler}/>
             </div>
         )
     }

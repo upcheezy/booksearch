@@ -3,13 +3,15 @@ import './Select.css';
 
 class Select extends Component {
     state = {
-        option: ''
+        option: '',
+        filter: ''
     }
 
     optionChangeHandler = event => {
         this.setState({
-            option: event.target.value
-        }, () => {this.props.filterHandler(this.state.option)}) 
+            option: event.target.value,
+            filter: event.target.value
+        }, () => {this.props.filterHandler(this.state.option, this.state.filter)}) 
     } 
 
     render() {

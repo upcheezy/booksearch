@@ -11,12 +11,27 @@ class FilterBar extends Component {
         }, {
             value: 'magazines'
         }],
-        bookType: []
+        filter: [{
+            value: 'partial'
+        },
+        {
+            value: 'full'
+        },
+        {
+            value: 'free-ebooks'
+        },
+        {
+            value: 'paid-ebooks'
+        },
+        {
+            value: 'ebooks'
+        }]
     }
     render() {
         return (
             <div className="filterBar">
                 <Select name='PrintType' options={this.state.printType} filterHandler={this.props.filterHandler}/>
+                <Select name='Filter' options={this.state.filter} filterHandler={this.props.filterHandler}/>
             </div>
         )
     }
