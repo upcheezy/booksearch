@@ -1,25 +1,36 @@
-import React, { Component } from 'react';
-import './SearchBox.css';
+import React, { Component } from "react";
+import "./SearchBox.css";
 
 class SearchBox extends Component {
     state = {
-        input: ''
-    }
+        name: "searchTerm",
+        value: ""
+    };
 
     changeHandler = event => {
         this.setState({
-            input: event.target.value
-        })
-    }
+            value: event.target.value
+        });
+    };
+
+    submitHandler = event => {
+        // console.log(this.state);
+        event.preventDefault();
+        this.props.filterHandler(this.state);
+    };
 
     render() {
-        console.log(this.state.input);
         return (
             <form onSubmit={this.submitHandler}>
-                <input type="text" onChange={this.changeHandler}/>
-                <button type='submit'>Search</button>
+                <input
+                    id={this.props.error ? "invalid" : null}
+                    type="text"
+                    placeholder={this.props.error ? "must fill out search" : null}
+                    onChange={this.changeHandler}
+                />
+                <button type="submit">Search</button>
             </form>
-        )
+        );
     }
 }
 

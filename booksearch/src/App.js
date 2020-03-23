@@ -1,46 +1,66 @@
-import React, { Component } from 'react';
-import './App.css';
-import SearchBar from './SearchBar/SearchBar';
-import FilterBar from './FilterBar/FilterBar';
-
+import React, { Component } from "react";
+import "./App.css";
+import SearchBar from "./SearchBar/SearchBar";
+import FilterBar from "./FilterBar/FilterBar";
+import DisplayResults from "./DisplayResult/DisplayResult";
 
 class App extends Component {
   state = {
-    books: []
-  }
+    books: [],
+    searchTerm: "",
+    printType: "",
+    bookType: "",
+    error: ""
+  };
 
-  submitHandler = queryParam => {
-    // console.log(this.filterHandler())
-    // const url = `https://www.googleapis.com/books/v1/volumes?q=${queryParam}&printType=${option}&key=AIzaSyBourK8drHqquXLvm8hxyTJ997zO7KX-Tc`
-    // the rest of the fetch...
-  }
-
-  filterHandler = (option, filter) => {
-    // console.log(this.state.books);
-    // console.log('option ' + option);
-    // console.log('filter ' + filter);
-    const url = `https://www.googleapis.com/books/v1/volumes?q=time&printType=${option}&filter=${filter}&key=AIzaSyBourK8drHqquXLvm8hxyTJ997zO7KX-Tc`
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        // console.log(data);
-        this.setState({
-          books: data.items
-        });
-      })
-      .catch(err => {
-        this.setState({
-          error: err.message
-        });
-      });
-  }
+  filterHandler = option => {
+    let url;
+    // console.log(option);
+    this.setState(
+      {
+        [option.name]: option.value
+      },
+      () => {
+        url = `https://www.googleapis.com/books/v1/volumes?${
+          this.state.searchTerm ? "q=" + this.state.searchTerm + "&" : ""
+        }${this.state.bookType ? "&filter=" + this.state.bookType + "&" : ""}${
+          this.state.printType ? "&printType=" + this.state.printType + "&" : ""
+        }&key=AIzaSyBourK8drHqquXLvm8hxyTJ997zO7KX-Tc`;
+        // console.log(url);
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              this.setState({
+                error: data.error
+              });
+            } else {
+              this.setState({
+                books: data.items,
+                error: ""
+              });
+            }
+          })
+          .catch(err => {
+            this.setState({
+              error: err.message
+            });
+          });
+      }
+    );
+  };
 
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <header>Google Book Search</header>
-        <SearchBar searchHandler={this.searchHandler}/>
-        <FilterBar filterHandler={this.filterHandler}/>
+        <SearchBar
+          filterHandler={this.filterHandler}
+          error={this.state.error}
+        />
+        <FilterBar filterHandler={this.filterHandler} />
+
+        <DisplayResults books={this.state.books} />
       </div>
     );
   }
